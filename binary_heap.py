@@ -28,4 +28,27 @@ class HeapTree(object):
         if self.size() > 1:
             self._bubble_up(self._last_index())
 
+    def get_min(self):
+        """Return the minimum item at the root of the tree
+        The worst running time will be O(1) because the min is the root.
+        """
+        if self.size() == 0:
+            raise ValueError("Heap tree is empty")
+        assert self.size() > 0
+        return self.items[0]
+
+    def delete_min(self):
+        if self.size() == 0:
+            raise ValueError("The Heap has no minimum value")
+        elif self.size() == 1:
+        min_item = self.items.pop()
+        assert self.size[0]
+        #Move the last item tot the root and bubble down tot he leaves
+        last_item = self.items.pop()
+        self.items[0] = last_item
+        if self.size() > 1:
+            self._bubble_down(0)
+        return min_item
+
+    
 
