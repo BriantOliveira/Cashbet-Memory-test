@@ -50,5 +50,18 @@ class HeapTree(object):
             self._bubble_down(0)
         return min_item
 
-    
+    def replace_min(self, item):
+        """Remove and return the minimum item at the root of this heap, and insert the given 
+        item into the heap, and insert the given item into the heap
+        """
+        if self.size == 0:
+            raise ValueError("The heap tree is empty and has no minimum value")
+        assert self.size() > 0
+        min_item = self.items[0]
+        #Replace the root and bubble down to the leaves
+        self.items[0] = item
+        if self.size() > 1:
+            self._bubble_down(0)
+            return min_item
+            
 
