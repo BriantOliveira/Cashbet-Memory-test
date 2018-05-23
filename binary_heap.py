@@ -91,4 +91,53 @@ class HeapTree(object):
 
     def _bubble_down(self, index):
         if not (0 <= self._last_index()):
-            raise ValueError("")
+            raise ValueError("Invalid index: {}".format(index))
+        #Get the index of the item's left and right child
+        left_index = self._left_child_index(index)
+        right_index = self._right_child_index(index)
+        if left_index > self._last_index():
+            return #This index is a leaf node
+        #Get items value
+        item = self.item[index]
+
+        #Determine which child item to compare this node item to 
+        child_index = 0 
+        if right_index > self._last_index():
+            child_index = left_index
+        elif self.items[right_index] < self.items[left_index]:
+            child_index = right_index
+        else:
+            child_index = left_index
+
+        #Swap this item with a child item if values are out or order
+        child_item = self.items[child_index]
+        did_swap = False
+        if child_item < item:
+            self.items[child_index] = item
+            self.items[index] = child_index
+            did_swap = True
+
+        #Recursively bubble down again if necessary
+
+        if did_swap is True:
+            self._bubble_down(child_index)
+    
+    def _last_index(self):
+        """Return the last valid index in the underlying array of items."""
+    return len(self.items) - 1
+
+    def _parent_index(self, index):
+        if index <= 0:
+            raise IndexError("Heap index {} has no parent index".format(index))
+        return (index - 1) >> 1 #Shift right and divided by two
+
+    def _left_child_index(self, index):
+        return (index << 1) + 1 #Shift left and multiply by 2
+    
+    def _right_child_index(self, index):
+        return (index << 1) + 2 #Shift left and multiply by 2
+
+def test_heap_tree():
+    items = [9, 25, 86, 3, 29, 5, 55]
+    heap = HeapTree()
+    print('heap: {}'.format(heaP))
