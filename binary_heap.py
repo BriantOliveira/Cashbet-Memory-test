@@ -63,5 +63,32 @@ class HeapTree(object):
         if self.size() > 1:
             self._bubble_down(0)
             return min_item
-            
 
+    def _bubble_up(self, index):
+        """Ensure the heap ordering property is true above the given index, 
+        swapping out the order items, until the root node is reached.
+        """
+        if index == 0:
+            return  #This is the root node. 
+        if not (0 <= self._last_index()):
+            raise IndexError("Invalid index: {}".format(index))
+        # Get the item value
+        item = self.items[index]
+        # Get the parent's index and value
+        parent_index = self._parent_index(index)
+        parent_item = self.items[parent_index]
+
+        # Swap this item with parent item if values are out of order
+        did_swap = False
+        if item < parent_item:
+            self.items[parent_index] = item
+            self.items[index] = parent_item
+            did_swap = True
+
+        # Recursively bubble up
+         if did_swap is True:
+             self._bubble_up(parent_index)
+
+    def _bubble_down(self, index):
+        if not (0 <= self._last_index()):
+            raise ValueError("")
